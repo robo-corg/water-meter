@@ -1,3 +1,6 @@
+[tools]
+python = "3.11"
+
 [tasks.setup-dev]
 description = "Setup development environment"
 run = [
