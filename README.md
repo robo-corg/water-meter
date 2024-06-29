@@ -48,4 +48,3 @@ Alternatively you can run through the setup in the [rust book](https://docs.esp-
 ```
 cargo espflash flash --monitor
 ```
-
