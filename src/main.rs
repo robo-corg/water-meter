@@ -22,7 +22,6 @@ fn main() -> anyhow::Result<()> {
 
     water_sensor.set_pull(Pull::Up)?;
 
-
     let mut channel = LedcDriver::new(
         peripherals.ledc.channel0,
         LedcTimerDriver::new(
@@ -75,8 +74,7 @@ fn main() -> anyhow::Result<()> {
                 color.set_duty(max_duty)?;
             }
             continue;
-        }
-        else {
+        } else {
             led[1].set_duty(max_duty * numerator / 5)?;
         }
 
