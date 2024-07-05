@@ -46,7 +46,8 @@ DEBUG_NUT_TRAP = false;
 
 main_enclosure();
 
-!difference() {
+// Usb-c side plate
+difference() {
     translate([BOX_WIDTH/2, -BOX_HEIGHT/2 - 2, -BOX_BASE_DEPTH/2]) {
         cube([2, BOX_HEIGHT + 4, WALL_HEIGHT], center = false);
     }
