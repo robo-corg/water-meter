@@ -11,6 +11,9 @@ USB_LEFT_OFFSET = 7.5;
 USB_C_HEIGHT = 3.5;
 USB_C_WIDTH = 9;
 
+JST_WIDTH = 15;
+JST_HEIGHT = 6;
+
 BOLT_DIAMETER = 2 + 0.4;
 
 NUT_TRAP_WIDTH = 4;
@@ -46,21 +49,38 @@ DEBUG_NUT_TRAP = false;
 
 main_enclosure();
 
-// Usb-c side plate
+// Side plate with esp32 usb-c
 difference() {
-    translate([BOX_WIDTH/2, -BOX_HEIGHT/2 - 2, -BOX_BASE_DEPTH/2]) {
-        cube([2, BOX_HEIGHT + 4, WALL_HEIGHT], center = false);
-    }
+    side_plate();
     translate([PCB_WIDTH/2+1, TOTAL_NUT_TRAP_HEIGHT -BOX_HEIGHT/2 - 0.5 + USB_LEFT_OFFSET - 2, 21 - USB_C_HEIGHT/2 - 2]) {
         cube([6, USB_C_WIDTH + 4, USB_C_HEIGHT + 4], center = false);
-    }
-    mirrorCopy([0, 1, ]) {
-        translate([BOX_WIDTH/2, 0, 0]) {
-            rotate([0, 90, 0]) {
-                rotate([0, 0, 90]) {
-                    translate([-BOX_HEIGHT/2, WALL_HEIGHT - TOTAL_NUT_TRAP_HEIGHT - BOX_BASE_DEPTH/2, 0]) {
-                        translate([NUT_TRAP_WIDTH, NUT_TRAP_HEIGHT, -0.1]) {
-                            cylinder(h = NUT_TRAP_DEPTH + PCB_STANDOFF + 1, d = BOLT_DIAMETER, center = false);
+    };
+}
+
+// Side plate with water sensor JST port
+!mirror([1, 0, 0])
+difference() {
+    side_plate();
+    translate([PCB_WIDTH/2+1, -(JST_WIDTH + 4)/2, PCB_STANDOFF + BOX_BASE_DEPTH/2]) {
+        cube([6, JST_WIDTH + 4, JST_HEIGHT + 4], center = false);
+    };
+}
+
+
+module side_plate() {
+    difference() {
+        translate([BOX_WIDTH/2, -BOX_HEIGHT/2 - 2, -BOX_BASE_DEPTH/2]) {
+            cube([2, BOX_HEIGHT + 4, WALL_HEIGHT], center = false);
+        }
+
+        mirrorCopy([0, 1, ]) {
+            translate([BOX_WIDTH/2, 0, 0]) {
+                rotate([0, 90, 0]) {
+                    rotate([0, 0, 90]) {
+                        translate([-BOX_HEIGHT/2, WALL_HEIGHT - TOTAL_NUT_TRAP_HEIGHT - BOX_BASE_DEPTH/2, 0]) {
+                            translate([NUT_TRAP_WIDTH, NUT_TRAP_HEIGHT, -0.1]) {
+                                cylinder(h = NUT_TRAP_DEPTH + PCB_STANDOFF + 1, d = BOLT_DIAMETER, center = false);
+                            }
                         }
                     }
                 }
