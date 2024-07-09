@@ -58,13 +58,18 @@ difference() {
 }
 
 // Side plate with water sensor JST port
-!mirror([1, 0, 0])
+*mirror([1, 0, 0])
 difference() {
     side_plate();
     translate([PCB_WIDTH/2+1, -(JST_WIDTH + 4)/2, PCB_STANDOFF + BOX_BASE_DEPTH/2]) {
         cube([6, JST_WIDTH + 4, JST_HEIGHT + 4], center = false);
     };
 }
+
+// TOP
+color("red")
+translate([0, 0, WALL_HEIGHT ])
+cube([BOX_WIDTH + 4, BOX_HEIGHT + 4, BOX_BASE_DEPTH], center = true);
 
 
 module side_plate() {
