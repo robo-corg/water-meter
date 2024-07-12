@@ -66,11 +66,42 @@ difference() {
     };
 }
 
-// TOP
-color("red")
-translate([0, 0, WALL_HEIGHT ])
-cube([BOX_WIDTH + 4, BOX_HEIGHT + 4, BOX_BASE_DEPTH], center = true);
+!top();
 
+// TOP
+module top() {
+    color("red")
+    translate([0, 0, WALL_HEIGHT ])
+    difference() {
+        cube([BOX_WIDTH + 4, BOX_HEIGHT + 4, BOX_BASE_DEPTH], center = true);
+        cylinder(h = BOX_BASE_DEPTH + 2, d = 5.5, center = true);
+    }
+
+    // side mounting ears
+    mirrorCopy([1, 0, 0]) {
+        mirrorCopy([0, 1, 0]) {
+            translate([-BOX_WIDTH/2, 0, 0]) {
+                rotate([0, 90, 0]) {
+                    rotate([0, 0, 90]) {
+                        translate([-BOX_HEIGHT/2, WALL_HEIGHT - TOTAL_NUT_TRAP_HEIGHT - BOX_BASE_DEPTH/2, NUT_TRAP_DEPTH + 4]) {
+                            difference() {
+                                translate([0, 0, 0]) {
+                                    cube([TOTAL_NUT_TRAP_WIDTH, TOTAL_NUT_TRAP_HEIGHT, NUT_TRAP_DEPTH + 4], center = false);
+                                }
+                                translate([NUT_TRAP_WIDTH, NUT_TRAP_HEIGHT, -0.1]) {
+                                    cylinder(h = NUT_TRAP_DEPTH + PCB_STANDOFF + 1, d = BOLT_DIAMETER, center = false);
+                                }
+                                translate([NUT_TRAP_HOUSING_WIDTH, NUT_TRAP_HOUSING_HEIGHT, 2]) {
+                                    cube([NUT_TRAP_WIDTH, NUT_TRAP_HEIGHT + 3, NUT_TRAP_DEPTH], center = false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 module side_plate() {
     difference() {
